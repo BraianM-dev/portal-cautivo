@@ -75,13 +75,6 @@ Uso **exclusivamente educativo y autorizado**.
 Antes de una demostración en aula: autorización institucional, entorno controlado e informar a los estudiantes que se trata de una simulación.  
 Ver [aviso-legal.html](aviso-legal.html).
 
-## Publicación en GitHub Pages
-
-1. Creá un repositorio (por ejemplo `portal-cautivo-educativo`).
-2. Subí el contenido de esta carpeta a la raíz (o a `/docs`).
-3. En *Settings → Pages*, elegí la rama `main` y la carpeta correspondiente.
-4. El sitio quedará en `https://<usuario>.github.io/<repo>/`.
-
 Para embeber en CREA/Schoology podés usar `?embed=1` en la URL (oculta header y footer).
 
 ## Atribución
