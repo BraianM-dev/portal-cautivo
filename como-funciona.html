@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>if(new URLSearchParams(location.search).has("embed")){document.documentElement.classList.add("embed");}</script>
+<title>Cómo funciona — Portal Cautivo Educativo</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="nav-row">
+    <a class="brand" href="index.html"><span class="dot"></span>Portal Cautivo Educativo</a>
+    <nav class="links">
+      <a href="index.html">Inicio</a>
+      <a href="como-funciona.html" class="active">Cómo funciona</a>
+      <a href="materiales.html">Materiales y código</a>
+      <a href="guia-docente.html">Guía docente</a>
+      <a href="recursos-docentes.html">Sobre el recurso</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="a11y-toggle" aria-label="Abrir panel de accesibilidad" aria-expanded="false" title="Accesibilidad">♿</button>
+      <button class="icon-btn" onclick="cycleTheme()" title="Cambiar tema" aria-label="Cambiar tema">🌓</button>
+    </div>
+  </div>
+  <div class="a11y-panel" id="a11y-panel" role="dialog" aria-label="Opciones de accesibilidad">
+    <h3>Accesibilidad</h3>
+    <div class="a11y-group"><label>Tema</label><div class="a11y-btns"><button type="button" data-theme="light">Claro</button><button type="button" data-theme="dark">Oscuro</button><button type="button" data-theme="contrast">Alto contraste</button></div></div>
+    <div class="a11y-group"><label>Tamaño de texto</label><div class="a11y-btns"><button type="button" data-fs="sm">A−</button><button type="button" data-fs="md">A</button><button type="button" data-fs="lg">A+</button><button type="button" data-fs="xl">A++</button></div></div>
+    <div class="a11y-group"><label>Lectura</label><div class="a11y-btns"><button type="button" data-dyslexia="off">Normal</button><button type="button" data-dyslexia="on">Dislexia</button></div></div>
+    <div class="a11y-group"><label>Movimiento</label><div class="a11y-btns"><button type="button" data-motion="off">Normal</button><button type="button" data-motion="on">Reducir</button></div></div>
+    <p class="small" style="margin:8px 0 0;">Las preferencias se guardan en este navegador.</p>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <p class="eyebrow">Experiencia controlada</p>
+    <h1>Cómo funciona la simulación</h1>
+    <p class="lead">Una placa ESP32-C3 crea una red Wi-Fi educativa. Quien se conecta es redirigido a un portal que imita un sistema administrativo escolar. Al “iniciar sesión” vive la secuencia phishing → ransomware → lección.</p>
+
+    <div class="callout danger">
+      <strong>Simulación 100 % educativa.</strong> No se guardan contraseñas, no se cifra ningún archivo del dispositivo del estudiante y no se instala malware real.
+    </div>
+
+    <h2>Flujo paso a paso</h2>
+
+    <div class="step">
+      <span class="step-num">1</span> <strong>Conexión a la red</strong>
+      <p>El estudiante busca el SSID (por defecto <code class="inline">DGES_Red_Docentes</code>) y se conecta. La red es abierta (sin contraseña).</p>
+    </div>
+    <div class="step">
+      <span class="step-num">2</span> <strong>Portal cautivo</strong>
+      <p>El ESP32 responde al DNS y redirige cualquier intento de navegación a la página del “Portal Administrativo Docente”.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">3</span> <strong>Login de demostración</strong>
+      <p>Se muestran secciones (Notas, Comunicados, Calendario, Asistencia). Al elegir una se pide cédula y contraseña. Hay una clave de ejemplo visible para no generar frustración innecesaria.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">4</span> <strong>“¡Caíste!”</strong>
+      <p>Al enviar el formulario aparece la pantalla de phishing. Se aclara de inmediato que es una simulación educativa y que los datos no se guardaron.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">5</span> <strong>Simulación de ransomware</strong>
+      <p>Una animación visual muestra “cifrado” de archivos ficticios y una nota de rescate. Todo ocurre solo en el navegador.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">6</span> <strong>Lección de cierre</strong>
+      <p>Se presenta un resumen de phishing, ransomware y buenas prácticas de protección.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">7</span> <strong>Panel del docente</strong>
+      <p>En <code class="inline">http://192.168.4.1/admin</code> el docente ve el contador de dispositivos que “cayeron” y una huella aproximada (modelo + User-Agent).</p>
+    </div>
+
+    <h2>Capturas reales</h2>
+
+    <figure>
+      <img src="assets/serial-monitor.jpg" alt="Monitor serial de Thonny mostrando AP activo y detección de phishing">
+      <figcaption>Monitor serial: AP educativo activo y detección de un iPhone</figcaption>
+    </figure>
+
+    <figure>
+      <img src="assets/admin-panel.jpg" alt="Panel de administración en el celular mostrando alumnos comprometidos">
+      <figcaption>Panel /admin en el celular del docente</figcaption>
+    </figure>
+
+    <div class="btn-row">
+      <a class="btn" href="materiales.html">Ver materiales y código →</a>
+      <a class="btn secondary" href="guia-docente.html">Guía docente</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="container">
+    <span>Ciencias de la Computación · 8°–9° EBI · ANEP · Braian Mosqueira</span>
+    <span>Licencia <a href="licencia.html">CC BY 4.0</a></span>
+  </div>
+</footer>
+<script src="assets/a11y.js"></script>
+</body>
+</html>

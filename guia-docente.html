@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>if(new URLSearchParams(location.search).has("embed")){document.documentElement.classList.add("embed");}</script>
+<title>Guía docente — Portal Cautivo Educativo</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="nav-row">
+    <a class="brand" href="index.html"><span class="dot"></span>Portal Cautivo Educativo</a>
+    <nav class="links">
+      <a href="index.html">Inicio</a>
+      <a href="como-funciona.html">Cómo funciona</a>
+      <a href="materiales.html">Materiales y código</a>
+      <a href="guia-docente.html" class="active">Guía docente</a>
+      <a href="recursos-docentes.html">Sobre el recurso</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="a11y-toggle" aria-label="Abrir panel de accesibilidad" aria-expanded="false" title="Accesibilidad">♿</button>
+      <button class="icon-btn" onclick="cycleTheme()" title="Cambiar tema" aria-label="Cambiar tema">🌓</button>
+    </div>
+  </div>
+  <div class="a11y-panel" id="a11y-panel" role="dialog" aria-label="Opciones de accesibilidad">
+    <h3>Accesibilidad</h3>
+    <div class="a11y-group"><label>Tema</label><div class="a11y-btns"><button type="button" data-theme="light">Claro</button><button type="button" data-theme="dark">Oscuro</button><button type="button" data-theme="contrast">Alto contraste</button></div></div>
+    <div class="a11y-group"><label>Tamaño de texto</label><div class="a11y-btns"><button type="button" data-fs="sm">A−</button><button type="button" data-fs="md">A</button><button type="button" data-fs="lg">A+</button><button type="button" data-fs="xl">A++</button></div></div>
+    <div class="a11y-group"><label>Lectura</label><div class="a11y-btns"><button type="button" data-dyslexia="off">Normal</button><button type="button" data-dyslexia="on">Dislexia</button></div></div>
+    <div class="a11y-group"><label>Movimiento</label><div class="a11y-btns"><button type="button" data-motion="off">Normal</button><button type="button" data-motion="on">Reducir</button></div></div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <p class="eyebrow">Orientaciones para el aula</p>
+    <h1>Guía docente</h1>
+
+    <h2>Ubicación curricular</h2>
+    <p>Recurso de <strong>Ciencias de la Computación, 8° y 9° EBI</strong>, eje <strong>Alfabetización y Ciudadanía Digital</strong>. Complementa y profundiza los contenidos de ciberseguridad (phishing, ingeniería social, ransomware, redes Wi-Fi) ya presentes en el programa. Adaptable a Educación Media Superior (EMS).</p>
+
+    <h2>Propósitos de aprendizaje</h2>
+    <ul>
+      <li>Reconocer técnicas de phishing e ingeniería social en contextos cercanos (redes Wi-Fi, portales “oficiales”).</li>
+      <li>Comprender qué es un portal cautivo y por qué una red abierta puede ser riesgosa.</li>
+      <li>Explicar, con sus palabras, qué es el ransomware y por qué no se recomienda pagar.</li>
+      <li>Identificar buenas prácticas de protección (verificar URL, no ingresar credenciales en redes desconocidas, actualizar software, etc.).</li>
+      <li>Diferenciar una simulación educativa de un ataque real.</li>
+    </ul>
+
+    <h2>Materiales y organización</h2>
+    <ul>
+      <li>Una o más placas ESP32-C3 con el firmware y el código cargados.</li>
+      <li>Celulares o notebooks de los estudiantes (se conectan a la red del ESP32).</li>
+      <li>Proyector o pantalla para mostrar el panel /admin y cerrar la actividad.</li>
+      <li>Autorización institucional previa (imprescindible).</li>
+    </ul>
+
+    <h2>Secuencia sugerida (90 minutos)</h2>
+    <table>
+      <thead><tr><th>Momento</th><th>Tiempo</th><th>Actividad</th></tr></thead>
+      <tbody>
+        <tr><td>Apertura</td><td>10–15'</td><td>Preguntas disparadoras + explicación clara de que es una simulación controlada.</td></tr>
+        <tr><td>Experiencia</td><td>25–30'</td><td>Conexión a la red, recorrido por el portal, “caída” voluntaria o espontánea.</td></tr>
+        <tr><td>Visualización</td><td>10'</td><td>Mostrar el panel de admin (contador y dispositivos).</td></tr>
+        <tr><td>Lección y reflexión</td><td>25–30'</td><td>Usar la lección del propio portal + debate guiado.</td></tr>
+        <tr><td>Cierre</td><td>10'</td><td>Acuerdos de buenas prácticas y, si corresponde, extensión a EMS.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Inclusión y DUA (Diseño Universal para el Aprendizaje)</h2>
+    <div class="callout">
+      <strong>Múltiples formas de implicación, representación y acción</strong>
+      <ul>
+        <li><strong>Implicación:</strong> la experiencia es concreta y cercana (red Wi-Fi, cédula, pantalla de “rescate”); se puede participar solo observando si alguien prefiere no conectar su dispositivo.</li>
+        <li><strong>Representación:</strong> textos claros, capturas reales, animación visual del ransomware y lección escrita. El sitio web de apoyo incluye panel de accesibilidad (tema, tamaño, contraste, fuente para dislexia, reducción de movimiento).</li>
+        <li><strong>Acción y expresión:</strong> se puede responder oralmente, por escrito, en equipos o individualmente. Roles diferenciados (quien se conecta, quien observa el admin, quien resume la lección).</li>
+        <li>La clave de demostración visible en el login evita bloqueos por “no saber la contraseña”.</li>
+        <li>La secuencia de pantallas es predecible y se puede anticipar oralmente para estudiantes con ansiedad o que necesiten más estructura.</li>
+      </ul>
+    </div>
+
+    <h2>Condiciones éticas y de seguridad</h2>
+    <ul>
+      <li>Solicitar autorización a la dirección / coordinación antes de la actividad.</li>
+      <li>Informar a los estudiantes, al inicio, que se trata de una simulación educativa.</li>
+      <li>No pedir ni almacenar credenciales reales.</li>
+      <li>Realizar la actividad en un entorno de red controlado (idealmente aislado de la red institucional).</li>
+      <li>Releer el <a href="aviso-legal.html">aviso legal</a> completo.</li>
+    </ul>
+
+    <h2>Posibles extensiones (EMS o grupos avanzados)</h2>
+    <ul>
+      <li>Analizar el User-Agent y hablar de huella digital del dispositivo.</li>
+      <li>Explicar de forma simple el DNS spoofing y el portal cautivo.</li>
+      <li>Comparar con portales cautivos legítimos (hoteles, aeropuertos) y cómo distinguirlos.</li>
+      <li>Profundizar en legislación (Ley 18.331 de protección de datos personales, delitos informáticos).</li>
+      <li>Modificar el código (cambiar textos, agregar pantallas, usar más de un nodo ESP-NOW).</li>
+    </ul>
+
+    <div class="btn-row">
+      <a class="btn secondary" href="materiales.html">← Materiales</a>
+      <a class="btn" href="recursos-docentes.html">Sobre el recurso →</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="container">
+    <span>Ciencias de la Computación · 8°–9° EBI · ANEP · Braian Mosqueira</span>
+    <span>Licencia <a href="licencia.html">CC BY 4.0</a></span>
+  </div>
+</footer>
+<script src="assets/a11y.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>if(new URLSearchParams(location.search).has("embed")){document.documentElement.classList.add("embed");}</script>
+<title>Sobre el recurso — Portal Cautivo Educativo</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="nav-row">
+    <a class="brand" href="index.html"><span class="dot"></span>Portal Cautivo Educativo</a>
+    <nav class="links">
+      <a href="index.html">Inicio</a>
+      <a href="como-funciona.html">Cómo funciona</a>
+      <a href="materiales.html">Materiales y código</a>
+      <a href="guia-docente.html">Guía docente</a>
+      <a href="recursos-docentes.html" class="active">Sobre el recurso</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="a11y-toggle" aria-label="Abrir panel de accesibilidad" aria-expanded="false" title="Accesibilidad">♿</button>
+      <button class="icon-btn" onclick="cycleTheme()" title="Cambiar tema" aria-label="Cambiar tema">🌓</button>
+    </div>
+  </div>
+  <div class="a11y-panel" id="a11y-panel" role="dialog" aria-label="Opciones de accesibilidad">
+    <h3>Accesibilidad</h3>
+    <div class="a11y-group"><label>Tema</label><div class="a11y-btns"><button type="button" data-theme="light">Claro</button><button type="button" data-theme="dark">Oscuro</button><button type="button" data-theme="contrast">Alto contraste</button></div></div>
+    <div class="a11y-group"><label>Tamaño de texto</label><div class="a11y-btns"><button type="button" data-fs="sm">A−</button><button type="button" data-fs="md">A</button><button type="button" data-fs="lg">A+</button><button type="button" data-fs="xl">A++</button></div></div>
+    <div class="a11y-group"><label>Lectura</label><div class="a11y-btns"><button type="button" data-dyslexia="off">Normal</button><button type="button" data-dyslexia="on">Dislexia</button></div></div>
+    <div class="a11y-group"><label>Movimiento</label><div class="a11y-btns"><button type="button" data-motion="off">Normal</button><button type="button" data-motion="on">Reducir</button></div></div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <p class="eyebrow">Transparencia y reutilización</p>
+    <h1>Sobre el recurso</h1>
+    <p class="lead">Planificación, fundamentación y condiciones de uso: guía docente, aviso legal, uso de IA y licencia.</p>
+
+    <div class="grid">
+      <a class="stage-card" href="guia-docente.html">
+        <span class="stage-num">ORIENTACIONES</span>
+        <h3>Guía docente</h3>
+        <p>Ubicación curricular, propósitos, secuencia, evaluación, DUA e inclusión.</p>
+      </a>
+      <a class="stage-card" href="aviso-legal.html">
+        <span class="stage-num">RESPONSABILIDAD</span>
+        <h3>Aviso legal</h3>
+        <p>Uso exclusivamente educativo, condiciones y descargo de responsabilidad.</p>
+      </a>
+      <a class="stage-card" href="declaracion-ia.html">
+        <span class="stage-num">TRANSPARENCIA</span>
+        <h3>Declaración de uso de IA</h3>
+        <p>Qué partes elaboró el docente y cuáles con asistencia de DeepSeek.</p>
+      </a>
+      <a class="stage-card" href="licencia.html">
+        <span class="stage-num">REUTILIZACIÓN</span>
+        <h3>Licencia</h3>
+        <p>CC BY 4.0: cómo atribuir y cómo reutilizar el recurso.</p>
+      </a>
+    </div>
+
+    <div class="callout">
+      <strong>Autor:</strong> Braian Mosqueira<br>
+      <strong>Nivel:</strong> 8° y 9° EBI (adaptable a EMS)<br>
+      <strong>Creación:</strong> junio–julio 2026<br>
+      <strong>Asistencia de IA:</strong> DeepSeek
+    </div>
+
+    <p><a href="index.html">← Volver al recurso</a></p>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="container">
+    <span>Ciencias de la Computación · 8°–9° EBI · ANEP · Braian Mosqueira</span>
+    <span>Licencia <a href="licencia.html">CC BY 4.0</a></span>
+  </div>
+</footer>
+<script src="assets/a11y.js"></script>
+</body>
+</html>

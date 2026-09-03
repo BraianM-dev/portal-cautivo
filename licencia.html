@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>if(new URLSearchParams(location.search).has("embed")){document.documentElement.classList.add("embed");}</script>
+<title>Licencia — Portal Cautivo Educativo</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="nav-row">
+    <a class="brand" href="index.html"><span class="dot"></span>Portal Cautivo Educativo</a>
+    <nav class="links">
+      <a href="index.html">Inicio</a>
+      <a href="como-funciona.html">Cómo funciona</a>
+      <a href="materiales.html">Materiales y código</a>
+      <a href="guia-docente.html">Guía docente</a>
+      <a href="recursos-docentes.html" class="active">Sobre el recurso</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="a11y-toggle" aria-label="Abrir panel de accesibilidad" aria-expanded="false" title="Accesibilidad">♿</button>
+      <button class="icon-btn" onclick="cycleTheme()" title="Cambiar tema" aria-label="Cambiar tema">🌓</button>
+    </div>
+  </div>
+  <div class="a11y-panel" id="a11y-panel" role="dialog" aria-label="Opciones de accesibilidad">
+    <h3>Accesibilidad</h3>
+    <div class="a11y-group"><label>Tema</label><div class="a11y-btns"><button type="button" data-theme="light">Claro</button><button type="button" data-theme="dark">Oscuro</button><button type="button" data-theme="contrast">Alto contraste</button></div></div>
+    <div class="a11y-group"><label>Tamaño de texto</label><div class="a11y-btns"><button type="button" data-fs="sm">A−</button><button type="button" data-fs="md">A</button><button type="button" data-fs="lg">A+</button><button type="button" data-fs="xl">A++</button></div></div>
+    <div class="a11y-group"><label>Lectura</label><div class="a11y-btns"><button type="button" data-dyslexia="off">Normal</button><button type="button" data-dyslexia="on">Dislexia</button></div></div>
+    <div class="a11y-group"><label>Movimiento</label><div class="a11y-btns"><button type="button" data-motion="off">Normal</button><button type="button" data-motion="on">Reducir</button></div></div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <p class="eyebrow">Reutilización</p>
+    <h1>Licencia de uso y reutilización</h1>
+
+    <p><strong>Este recurso (texto, código, diseño y documentación) está disponible bajo licencia Creative Commons Atribución 4.0 Internacional (CC BY 4.0).</strong></p>
+    <p>Podés usarlo, copiarlo, modificarlo, adaptarlo y redistribuirlo, incluso con fines comerciales, siempre que des crédito apropiado.</p>
+
+    <h2>Qué cubre esta licencia</h2>
+    <ul>
+      <li>Todo el texto de las páginas (explicaciones, consignas, guía docente, avisos).</li>
+      <li>El código del ESP32 (MicroPython) y las páginas HTML/CSS/JS de este sitio.</li>
+      <li>La estructura pedagógica y didáctica del recurso.</li>
+    </ul>
+
+    <h2>Cómo atribuir</h2>
+    <p>Al reutilizar este recurso (total o parcialmente), incluí una atribución como esta:</p>
+    <blockquote class="question">
+      “Portal Cautivo Educativo — Simulación de Phishing y Ransomware con ESP32” por Braian Mosqueira, con asistencia de DeepSeek, bajo licencia CC BY 4.0.<br>
+      https://creativecommons.org/licenses/by/4.0/
+    </blockquote>
+
+    <h2>Descargar el recurso completo</h2>
+    <p>Para desplegarlo en un LMS (CREA/Schoology, Moodle, etc.) o alojarlo en tu propio hosting:</p>
+    <p><a class="btn" href="../ESP32-Ciberseguridad-Educativo-Braian-Mosqueira.zip">⬇ Descargar recurso completo (.zip)</a></p>
+    <p class="small">También podés clonar o copiar la carpeta <code class="inline">portal-cautivo/</code> completa. Cada página HTML es autocontenida y solo necesita <code class="inline">assets/style.css</code> y <code class="inline">assets/a11y.js</code>.</p>
+
+    <p><a href="recursos-docentes.html">← Sobre el recurso</a></p>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="container">
+    <span>Ciencias de la Computación · 8°–9° EBI · ANEP · Braian Mosqueira</span>
+    <span>Licencia <a href="licencia.html">CC BY 4.0</a></span>
+  </div>
+</footer>
+<script src="assets/a11y.js"></script>
+</body>
+</html>

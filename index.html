@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>if(new URLSearchParams(location.search).has("embed")){document.documentElement.classList.add("embed");}</script>
+<title>Portal Cautivo Educativo — Phishing y Ransomware | 8°–9° EBI</title>
+<meta name="description" content="Simulación educativa controlada de phishing y ransomware con ESP32 para 8° y 9° EBI. Alfabetización y Ciudadanía Digital.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="nav-row">
+    <a class="brand" href="index.html"><span class="dot"></span>Portal Cautivo Educativo</a>
+    <nav class="links">
+      <a href="index.html" class="active">Inicio</a>
+      <a href="como-funciona.html">Cómo funciona</a>
+      <a href="materiales.html">Materiales y código</a>
+      <a href="guia-docente.html">Guía docente</a>
+      <a href="recursos-docentes.html">Sobre el recurso</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="a11y-toggle" aria-label="Abrir panel de accesibilidad" aria-expanded="false" title="Accesibilidad">♿</button>
+      <button class="icon-btn" onclick="cycleTheme()" title="Cambiar tema" aria-label="Cambiar tema">🌓</button>
+    </div>
+  </div>
+  <div class="a11y-panel" id="a11y-panel" role="dialog" aria-label="Opciones de accesibilidad">
+    <h3>Accesibilidad</h3>
+    <div class="a11y-group">
+      <label>Tema</label>
+      <div class="a11y-btns">
+        <button type="button" data-theme="light">Claro</button>
+        <button type="button" data-theme="dark">Oscuro</button>
+        <button type="button" data-theme="contrast">Alto contraste</button>
+      </div>
+    </div>
+    <div class="a11y-group">
+      <label>Tamaño de texto</label>
+      <div class="a11y-btns">
+        <button type="button" data-fs="sm">A−</button>
+        <button type="button" data-fs="md">A</button>
+        <button type="button" data-fs="lg">A+</button>
+        <button type="button" data-fs="xl">A++</button>
+      </div>
+    </div>
+    <div class="a11y-group">
+      <label>Lectura</label>
+      <div class="a11y-btns">
+        <button type="button" data-dyslexia="off">Normal</button>
+        <button type="button" data-dyslexia="on">Dislexia</button>
+      </div>
+    </div>
+    <div class="a11y-group">
+      <label>Movimiento</label>
+      <div class="a11y-btns">
+        <button type="button" data-motion="off">Normal</button>
+        <button type="button" data-motion="on">Reducir</button>
+      </div>
+    </div>
+    <p class="small" style="margin:8px 0 0;">Las preferencias se guardan en este navegador.</p>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <p class="eyebrow">Ciencias de la Computación · 8°–9° EBI · Alfabetización y Ciudadanía Digital</p>
+    <h1>¿Cómo caemos en un phishing… y qué pasa después?</h1>
+    <p class="lead">
+      Todos los días nos conectamos a redes Wi-Fi, abrimos portales “oficiales” y escribimos
+      nuestras credenciales sin darnos cuenta de que alguien podría estar simulando esa pantalla.
+      Este recurso permite <strong>vivir de forma controlada y segura</strong> una simulación de
+      phishing y ransomware, para después reflexionar y aprender a protegernos.
+    </p>
+
+    <p>El recurso se organiza en tres momentos claros:</p>
+
+    <div class="grid">
+      <a class="stage-card" href="como-funciona.html">
+        <span class="stage-num">MOMENTO 1</span>
+        <h3>La experiencia</h3>
+        <p>¿Qué siente un estudiante cuando “cae” en un portal cautivo que parece legítimo?</p>
+      </a>
+      <a class="stage-card" href="materiales.html">
+        <span class="stage-num">MOMENTO 2</span>
+        <h3>Cómo se construye</h3>
+        <p>¿Qué placa, qué código y qué pasos hacen posible la simulación?</p>
+      </a>
+      <a class="stage-card" href="guia-docente.html">
+        <span class="stage-num">MOMENTO 3</span>
+        <h3>Para el docente</h3>
+        <p>¿Cómo planificar, autorizar y cerrar la actividad con sentido pedagógico y DUA?</p>
+      </a>
+    </div>
+
+    <div class="btn-row">
+      <a class="btn" href="como-funciona.html">Empezar →</a>
+      <a class="btn secondary" href="guia-docente.html">Soy docente</a>
+      <a class="btn secondary" href="recursos-docentes.html">Sobre el recurso</a>
+    </div>
+
+    <hr class="sep">
+
+    <h2>Preguntas para empezar a pensar</h2>
+    <p>Antes de conectar ningún dispositivo, reflexionemos:</p>
+    <blockquote class="question">¿Por qué confiamos en una página solo porque “parece” oficial?</blockquote>
+    <blockquote class="question">¿Qué datos entregamos cuando nos piden la cédula y contraseña en una red Wi-Fi pública o desconocida?</blockquote>
+    <blockquote class="question">Si un ransomware “cifra” nuestros archivos… ¿pagar resuelve el problema?</blockquote>
+    <blockquote class="question">¿Qué diferencia hay entre una simulación educativa y un ataque real?</blockquote>
+    <p class="small">No hace falta responderlas todavía: la experiencia y la lección final del portal van a ayudar a responderlas.</p>
+
+    <h2>Qué incluye este recurso</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Simulación completa</h3>
+        <p>Portal cautivo + phishing + ransomware animado + lección de cierre, todo en una placa ESP32-C3 (~$300 UYU).</p>
+      </div>
+      <div class="card">
+        <h3>Panel del docente</h3>
+        <p>Contador en tiempo real de “alumnos comprometidos” y huella digital aproximada de los dispositivos.</p>
+      </div>
+      <div class="card">
+        <h3>Documentación y DUA</h3>
+        <p>Aviso legal, declaración de IA, licencia CC BY 4.0, guía docente y panel de accesibilidad.</p>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <strong>Uso exclusivamente educativo y autorizado.</strong>
+      Esta simulación no instala malware, no cifra archivos reales y no guarda contraseñas.
+      Debe realizarse solo en entornos controlados y con autorización institucional.
+      Ver <a href="aviso-legal.html">aviso legal completo</a>.
+    </div>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="container">
+    <span>Ciencias de la Computación · 8°–9° EBI · ANEP · Braian Mosqueira</span>
+    <span>Licencia <a href="licencia.html">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+<script src="assets/a11y.js"></script>
+</body>
+</html>

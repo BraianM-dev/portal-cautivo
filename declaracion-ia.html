@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>if(new URLSearchParams(location.search).has("embed")){document.documentElement.classList.add("embed");}</script>
+<title>Declaración de uso de IA — Portal Cautivo Educativo</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="nav-row">
+    <a class="brand" href="index.html"><span class="dot"></span>Portal Cautivo Educativo</a>
+    <nav class="links">
+      <a href="index.html">Inicio</a>
+      <a href="como-funciona.html">Cómo funciona</a>
+      <a href="materiales.html">Materiales y código</a>
+      <a href="guia-docente.html">Guía docente</a>
+      <a href="recursos-docentes.html" class="active">Sobre el recurso</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="a11y-toggle" aria-label="Abrir panel de accesibilidad" aria-expanded="false" title="Accesibilidad">♿</button>
+      <button class="icon-btn" onclick="cycleTheme()" title="Cambiar tema" aria-label="Cambiar tema">🌓</button>
+    </div>
+  </div>
+  <div class="a11y-panel" id="a11y-panel" role="dialog" aria-label="Opciones de accesibilidad">
+    <h3>Accesibilidad</h3>
+    <div class="a11y-group"><label>Tema</label><div class="a11y-btns"><button type="button" data-theme="light">Claro</button><button type="button" data-theme="dark">Oscuro</button><button type="button" data-theme="contrast">Alto contraste</button></div></div>
+    <div class="a11y-group"><label>Tamaño de texto</label><div class="a11y-btns"><button type="button" data-fs="sm">A−</button><button type="button" data-fs="md">A</button><button type="button" data-fs="lg">A+</button><button type="button" data-fs="xl">A++</button></div></div>
+    <div class="a11y-group"><label>Lectura</label><div class="a11y-btns"><button type="button" data-dyslexia="off">Normal</button><button type="button" data-dyslexia="on">Dislexia</button></div></div>
+    <div class="a11y-group"><label>Movimiento</label><div class="a11y-btns"><button type="button" data-motion="off">Normal</button><button type="button" data-motion="on">Reducir</button></div></div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <p class="eyebrow">Transparencia</p>
+    <h1>Declaración de uso de Inteligencia Artificial en este recurso</h1>
+
+    <p>En línea con el principio de transparencia sobre el uso de inteligencia artificial en el ámbito educativo establecido por la <strong>Circular N.º 23/2024 del CODICEN</strong> (“La inteligencia artificial en la educación”), se detalla a continuación qué partes de este recurso fueron elaboradas por el docente y cuáles con asistencia de IA.</p>
+
+    <p><strong>Herramienta utilizada:</strong> DeepSeek, un asistente de inteligencia artificial conversacional, utilizado durante el proceso de desarrollo, refinamiento del código y apoyo en la redacción de la documentación y de este sitio.</p>
+
+    <h2>Detalle por componente</h2>
+    <table>
+      <thead>
+        <tr><th>Componente</th><th>Autoría</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Idea pedagógica, secuencia didáctica y narrativa de la actividad (portal cautivo + phishing + ransomware educativo)</td>
+          <td>Braian Mosqueira</td>
+        </tr>
+        <tr>
+          <td>Código base del ESP32 (portal cautivo, DNS, ESP-NOW, servidor web, HTML de las pantallas)</td>
+          <td>Desarrollado y adaptado por Braian Mosqueira, con asistencia de DeepSeek para optimización y correcciones</td>
+        </tr>
+        <tr>
+          <td>Diseño visual y maquetación de las páginas HTML/CSS del portal y de este sitio de documentación</td>
+          <td>Asistido por DeepSeek / Grok, supervisado y validado por Braian Mosqueira</td>
+        </tr>
+        <tr>
+          <td>Textos educativos de las pantallas (aviso de phishing, lección, mensajes de simulación)</td>
+          <td>Redactados/revisados con apoyo de DeepSeek y aprobados por Braian Mosqueira</td>
+        </tr>
+        <tr>
+          <td>Documentación del recurso (guía docente, aviso legal, esta declaración, licencia)</td>
+          <td>Elaborada con asistencia de IA y validada por Braian Mosqueira</td>
+        </tr>
+        <tr>
+          <td>Revisión y validación final del contenido y del código</td>
+          <td>Braian Mosqueira</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>Alcance de esta declaración:</strong> ningún dato personal de estudiantes fue procesado por herramientas de IA en la elaboración de este recurso. Las simulaciones se ejecutan de forma local en el ESP32 y en el navegador del dispositivo conectado; no se envían credenciales ni información a servidores externos ni a servicios de IA.</p>
+
+    <p><a href="recursos-docentes.html">← Sobre el recurso</a></p>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="container">
+    <span>Ciencias de la Computación · 8°–9° EBI · ANEP · Braian Mosqueira</span>
+    <span>Licencia <a href="licencia.html">CC BY 4.0</a></span>
+  </div>
+</footer>
+<script src="assets/a11y.js"></script>
+</body>
+</html>

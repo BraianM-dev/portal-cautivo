@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>if(new URLSearchParams(location.search).has("embed")){document.documentElement.classList.add("embed");}</script>
+<title>Aviso legal — Portal Cautivo Educativo</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="nav-row">
+    <a class="brand" href="index.html"><span class="dot"></span>Portal Cautivo Educativo</a>
+    <nav class="links">
+      <a href="index.html">Inicio</a>
+      <a href="como-funciona.html">Cómo funciona</a>
+      <a href="materiales.html">Materiales y código</a>
+      <a href="guia-docente.html">Guía docente</a>
+      <a href="recursos-docentes.html" class="active">Sobre el recurso</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="a11y-toggle" aria-label="Abrir panel de accesibilidad" aria-expanded="false" title="Accesibilidad">♿</button>
+      <button class="icon-btn" onclick="cycleTheme()" title="Cambiar tema" aria-label="Cambiar tema">🌓</button>
+    </div>
+  </div>
+  <div class="a11y-panel" id="a11y-panel" role="dialog" aria-label="Opciones de accesibilidad">
+    <h3>Accesibilidad</h3>
+    <div class="a11y-group"><label>Tema</label><div class="a11y-btns"><button type="button" data-theme="light">Claro</button><button type="button" data-theme="dark">Oscuro</button><button type="button" data-theme="contrast">Alto contraste</button></div></div>
+    <div class="a11y-group"><label>Tamaño de texto</label><div class="a11y-btns"><button type="button" data-fs="sm">A−</button><button type="button" data-fs="md">A</button><button type="button" data-fs="lg">A+</button><button type="button" data-fs="xl">A++</button></div></div>
+    <div class="a11y-group"><label>Lectura</label><div class="a11y-btns"><button type="button" data-dyslexia="off">Normal</button><button type="button" data-dyslexia="on">Dislexia</button></div></div>
+    <div class="a11y-group"><label>Movimiento</label><div class="a11y-btns"><button type="button" data-motion="off">Normal</button><button type="button" data-motion="on">Reducir</button></div></div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <p class="eyebrow">Responsabilidad</p>
+    <h1>Aviso legal y descargo de responsabilidad</h1>
+
+    <div class="callout danger">
+      <strong>IMPORTANTE: USO EXCLUSIVAMENTE EDUCATIVO Y AUTORIZADO</strong>
+    </div>
+
+    <p>El código, software, scripts, ejemplos y materiales proporcionados en este proyecto tienen como finalidad exclusiva la <strong>educación, capacitación, investigación y demostración de conceptos relacionados con ciberseguridad</strong>, incluyendo, entre otros, phishing, ingeniería social, redes, malware y mecanismos de simulación de ataques.</p>
+
+    <p>El autor <strong>no se responsabiliza</strong> por el uso indebido, ilegal, no autorizado o malicioso que terceros puedan realizar con el código o con cualquier modificación, adaptación o derivación del mismo.</p>
+
+    <p>El usuario que ejecute, modifique o distribuya este código es <strong>el único responsable</strong> de garantizar que su utilización cumpla con la legislación vigente, las políticas de seguridad aplicables y las autorizaciones correspondientes.</p>
+
+    <h2>Condiciones de uso</h2>
+    <ul>
+      <li>Utilizar el código únicamente en equipos, redes, dispositivos y sistemas propios o sobre los cuales se cuente con autorización expresa.</li>
+      <li>No utilizarlo para obtener, almacenar, interceptar o divulgar credenciales, información personal, datos confidenciales o cualquier otra información perteneciente a terceros sin autorización.</li>
+      <li>No utilizarlo para realizar ataques, acceder a sistemas sin autorización, interrumpir servicios, distribuir malware real o causar daños a personas, organizaciones o dispositivos.</li>
+      <li>Las simulaciones de phishing, malware o ransomware deben realizarse únicamente con fines educativos y bajo condiciones controladas.</li>
+      <li>Antes de realizar una demostración en un entorno educativo, se recomienda contar con la autorización correspondiente de la institución y establecer claramente el alcance de la actividad.</li>
+      <li>El autor no garantiza que el código sea adecuado para entornos de producción ni que esté libre de errores, vulnerabilidades o comportamientos inesperados.</li>
+    </ul>
+
+    <h2>Simulaciones</h2>
+    <p>Cualquier pantalla, mensaje, comportamiento o funcionalidad que represente malware, ransomware, phishing u otra amenaza informática debe interpretarse como una <strong>simulación educativa</strong>, salvo que se indique expresamente lo contrario.</p>
+    <p>El hecho de que una simulación represente una amenaza informática <strong>no significa que se haya producido realmente un ataque, cifrado de archivos, robo de información o compromiso del dispositivo</strong>.</p>
+    <p><strong>Al ejecutar este código, el usuario acepta utilizarlo bajo su propia responsabilidad y únicamente dentro de los límites establecidos anteriormente.</strong></p>
+
+    <div class="callout">
+      <strong>El conocimiento sobre ciberseguridad debe utilizarse para proteger sistemas, educar usuarios y mejorar la seguridad, nunca para causar daño o acceder a recursos sin autorización.</strong>
+    </div>
+
+    <p><a href="recursos-docentes.html">← Sobre el recurso</a></p>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="container">
+    <span>Ciencias de la Computación · 8°–9° EBI · ANEP · Braian Mosqueira</span>
+    <span>Licencia <a href="licencia.html">CC BY 4.0</a></span>
+  </div>
+</footer>
+<script src="assets/a11y.js"></script>
+</body>
+</html>

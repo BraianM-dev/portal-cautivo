@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>if(new URLSearchParams(location.search).has("embed")){document.documentElement.classList.add("embed");}</script>
+<title>Materiales y código — Portal Cautivo Educativo</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="nav-row">
+    <a class="brand" href="index.html"><span class="dot"></span>Portal Cautivo Educativo</a>
+    <nav class="links">
+      <a href="index.html">Inicio</a>
+      <a href="como-funciona.html">Cómo funciona</a>
+      <a href="materiales.html" class="active">Materiales y código</a>
+      <a href="guia-docente.html">Guía docente</a>
+      <a href="recursos-docentes.html">Sobre el recurso</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="a11y-toggle" aria-label="Abrir panel de accesibilidad" aria-expanded="false" title="Accesibilidad">♿</button>
+      <button class="icon-btn" onclick="cycleTheme()" title="Cambiar tema" aria-label="Cambiar tema">🌓</button>
+    </div>
+  </div>
+  <div class="a11y-panel" id="a11y-panel" role="dialog" aria-label="Opciones de accesibilidad">
+    <h3>Accesibilidad</h3>
+    <div class="a11y-group"><label>Tema</label><div class="a11y-btns"><button type="button" data-theme="light">Claro</button><button type="button" data-theme="dark">Oscuro</button><button type="button" data-theme="contrast">Alto contraste</button></div></div>
+    <div class="a11y-group"><label>Tamaño de texto</label><div class="a11y-btns"><button type="button" data-fs="sm">A−</button><button type="button" data-fs="md">A</button><button type="button" data-fs="lg">A+</button><button type="button" data-fs="xl">A++</button></div></div>
+    <div class="a11y-group"><label>Lectura</label><div class="a11y-btns"><button type="button" data-dyslexia="off">Normal</button><button type="button" data-dyslexia="on">Dislexia</button></div></div>
+    <div class="a11y-group"><label>Movimiento</label><div class="a11y-btns"><button type="button" data-motion="off">Normal</button><button type="button" data-motion="on">Reducir</button></div></div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <p class="eyebrow">Hardware y software</p>
+    <h1>Materiales y código</h1>
+
+    <h2>Qué se necesita</h2>
+    <table>
+      <thead><tr><th>Elemento</th><th>Detalle</th><th>Costo aprox.</th></tr></thead>
+      <tbody>
+        <tr><td>Placa</td><td>ESP32-C3 Super Mini</td><td>$300 UYU</td></tr>
+        <tr><td>Cable</td><td>USB-C</td><td>—</td></tr>
+        <tr><td>Software</td><td>Thonny + MicroPython para ESP32-C3</td><td>Gratuito</td></tr>
+        <tr><td>Red</td><td>Aula o laboratorio controlado</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <figure>
+      <img src="assets/esp32-c3-super-mini.jpg" alt="Placa ESP32-C3 Super Mini">
+      <figcaption>ESP32-C3 Super Mini utilizada en el proyecto</figcaption>
+    </figure>
+
+    <h2>Instalación paso a paso</h2>
+    <div class="step">
+      <span class="step-num">1</span> <strong>Preparar el entorno</strong>
+      <ul>
+        <li>Instalar <a href="https://thonny.org/" target="_blank" rel="noopener">Thonny</a>.</li>
+        <li>Descargar firmware MicroPython para ESP32-C3 desde <a href="https://micropython.org/download/ESP32_GENERIC_C3/" target="_blank" rel="noopener">micropython.org</a>.</li>
+        <li>Conectar la placa y ponerla en modo boot.</li>
+        <li>Flashear el firmware con Thonny.</li>
+      </ul>
+    </div>
+    <div class="step">
+      <span class="step-num">2</span> <strong>Cargar el código</strong>
+      <p>Abrir el archivo <code class="inline">ESP32-CIBERSEGURIDAD-MALWARE.py</code> en Thonny y ajustar al inicio:</p>
+      <pre>NODE_ROLE = 'master'            # 'master' o 'slave'
+MASTER_ALSO_AP = True
+CHANNEL = 6
+SSID_BASE = "DGES_Red_Docentes"</pre>
+      <p>Guardar como <code class="inline">main.py</code> en la placa y reiniciar.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">3</span> <strong>Verificar</strong>
+      <p>En el monitor serial debería aparecer:</p>
+      <pre>AP educativo activo en 192.168.4.1
+SSID: DGES_Red_Docentes
+Admin: http://192.168.4.1/admin</pre>
+    </div>
+    <div class="step">
+      <span class="step-num">4</span> <strong>Probar</strong>
+      <p>Conectar un celular a la red, completar el login de demostración y observar la secuencia completa. Abrir el panel admin desde otro dispositivo de la misma red.</p>
+    </div>
+
+    <h2>Código completo</h2>
+    <p>
+      <a class="btn" href="assets/ESP32-CIBERSEGURIDAD-MALWARE.py" download>⬇ Descargar .py</a>
+      <button class="btn secondary" onclick="copiarCodigo()">Copiar al portapapeles</button>
+    </p>
+    <details>
+      <summary>Ver código fuente completo</summary>
+      <pre id="codigo-fuente">import network
+import espnow
+import socket
+import select
+import time
+import errno
+import ubinascii
+
+# ========== CONFIGURACIÓN DE ROL ==========
+NODE_ROLE = &#x27;master&#x27;            # &#x27;master&#x27; o &#x27;slave&#x27;
+MASTER_ALSO_AP = True          # Si es master y también ofrece AP a alumnos (solo para master)
+CHANNEL = 6                    # Mismo canal para todos
+SSID_BASE = &quot;DGES_Red_Docentes&quot;
+AP_IP = &quot;192.168.4.1&quot;
+MAX_CLIENTS = 10
+
+def get_unique_ssid():
+    &quot;&quot;&quot;Genera un SSID único basado en los últimos 4 caracteres de la MAC&quot;&quot;&quot;
+    sta_mac = network.WLAN(network.STA_IF).config(&#x27;mac&#x27;)
+    mac_suffix = ubinascii.hexlify(sta_mac).decode()[-4:]
+    return f&quot;{SSID_BASE}_{mac_suffix}&quot;
+
+# ----- Configurar el punto de acceso según el rol -----
+ap = network.WLAN(network.AP_IF)
+ap.active(True)
+
+if NODE_ROLE == &#x27;master&#x27; and not MASTER_ALSO_AP:
+    ap.config(essid=&quot;Admin_DGES&quot;, authmode=0, max_clients=1, channel=CHANNEL)
+else:
+    if NODE_ROLE == &#x27;master&#x27;:
+        ssid = SSID_BASE
+    else:  # slave
+        ssid = get_unique_ssid()
+    ap.config(essid=ssid, authmode=0, max_clients=MAX_CLIENTS, channel=CHANNEL)
+
+ap.ifconfig((AP_IP, &#x27;255.255.255.0&#x27;, AP_IP, AP_IP))
+
+# ----- Inicializar ESP-NOW -----
+sta = network.WLAN(network.STA_IF)
+sta.active(True)
+sta.disconnect()
+e = espnow.ESPNow()
+e.active(True)
+e.add_peer(b&#x27;\xff\xff\xff\xff\xff\xff&#x27;)   # Broadcast
+own_mac = ubinascii.hexlify(sta.config(&#x27;mac&#x27;)).decode()
+
+# ----- Variables globales -----
+contador = 0
+registro_caidas = []
+
+# ========== FUNCIONES DEL PORTAL ==========
+def http_redirect(location=&quot;/&quot;):
+    return f&quot;HTTP/1.1 302 Found\r\nLocation: {location}\r\nConnection: close\r\n\r\n&quot;
+
+def html_portal():
+    return &quot;&quot;&quot;HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: close\r\n\r\n
+&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;title&gt;Portal Administrativo Docente&lt;/title&gt;
+&lt;style&gt;body{font-family:Arial,sans-serif;background:#f0f2f5;margin:0;padding:20px;color:#333;}
+.header{background:#004b87;color:#fff;padding:15px;text-align:center;border-radius:5px;margin-bottom:20px;}
+.header h2{margin:0;font-size:22px;}
+.aviso{background:#fff3cd;border-left:5px solid #ffc107;padding:10px;margin-bottom:20px;color:#856404;font-size:14px;}
+.grid{display:flex;flex-wrap:wrap;gap:15px;justify-content:center;}
+.card{background:#fff;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.1);width:140px;padding:20px;text-align:center;text-decoration:none;color:#004b87;font-weight:bold;transition:transform 0.2s;}
+.card:hover{transform:scale(1.05);box-shadow:0 4px 12px rgba(0,0,0,0.2);}
+.card div{font-size:40px;margin-bottom:10px;}
+.footer{text-align:center;font-size:12px;color:#999;margin-top:30px;}
+&lt;/style&gt;&lt;/head&gt;&lt;body&gt;
+&lt;div class=&quot;header&quot;&gt;&lt;h2&gt;📋 Portal Administrativo&lt;/h2&gt;&lt;p&gt;Sistema interno para personal docente&lt;/p&gt;&lt;/div&gt;
+&lt;div class=&quot;aviso&quot;&gt;⚠️ Acceso restringido. Si eres alumno, esta área no es para ti.&lt;/div&gt;
+&lt;div class=&quot;grid&quot;&gt;
+&lt;a href=&quot;/login?seccion=notas&quot; class=&quot;card&quot;&gt;&lt;div&gt;📊&lt;/div&gt;Ver Notas&lt;/a&gt;
+&lt;a href=&quot;/login?seccion=comunicados&quot; class=&quot;card&quot;&gt;&lt;div&gt;📢&lt;/div&gt;Comunicados&lt;/a&gt;
+&lt;a href=&quot;/login?seccion=calendario&quot; class=&quot;card&quot;&gt;&lt;div&gt;📅&lt;/div&gt;Calendario Exámenes&lt;/a&gt;
+&lt;a href=&quot;/login?seccion=asistencia&quot; class=&quot;card&quot;&gt;&lt;div&gt;✅&lt;/div&gt;Asistencia&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;footer&quot;&gt;Sistema de Gestión Centralizada v2.4 · DGES&lt;/div&gt;
+&lt;/body&gt;&lt;/html&gt;&quot;&quot;&quot;
+
+def html_login(seccion=&quot;desconocida&quot;):
+    titulos = {&quot;notas&quot;:&quot;Acceso a Notas del Grupo&quot;,&quot;comunicados&quot;:&quot;Comunicados Internos&quot;,&quot;calendario&quot;:&quot;Calendario de Exámenes&quot;,&quot;asistencia&quot;:&quot;Registro de Asistencia&quot;}
+    titulo = titulos.get(seccion, &quot;Portal Administrativo&quot;)
+    return f&quot;&quot;&quot;HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: close\r\n\r\n
+&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;title&gt;{titulo}&lt;/title&gt;
+&lt;style&gt;body{{font-family:Arial,sans-serif;text-align:center;background:#eef2f5;margin-top:40px;color:#333;}}
+.c{{background:#fff;padding:30px;border-radius:5px;border-top:5px solid #004b87;box-shadow:0 4px 8px rgba(0,0,0,0.1);display:inline-block;width:85%;max-width:320px;}}
+h2{{color:#004b87;font-size:20px;margin-bottom:5px;}}
+p{{font-size:14px;color:#666;margin-bottom:20px;}}
+input{{width:90%;padding:10px;margin:10px 0;border:1px solid #ccc;border-radius:3px;box-sizing:border-box;}}
+button{{background:#004b87;color:#fff;border:none;padding:12px;border-radius:3px;font-size:16px;width:100%;font-weight:bold;cursor:pointer;}}
+.footer{{font-size:11px;color:#999;margin-top:20px;}}
+.help{{background:#e3f2fd;border-left:4px solid #2196F3;padding:10px;margin-top:15px;font-size:12px;color:#1565c0;border-radius:3px;}}
+.help strong{{display:block;margin-bottom:5px;}}
+.help code{{background:#fff;padding:2px 6px;border-radius:2px;color:#000;font-weight:bold;}}
+&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;c&quot;&gt;&lt;h2&gt;{titulo}&lt;/h2&gt;&lt;p&gt;Para ver esta información, ingrese sus credenciales institucionales.&lt;/p&gt;
+&lt;form action=&quot;/susto&quot; method=&quot;POST&quot;&gt;
+&lt;input type=&quot;text&quot; name=&quot;user&quot; placeholder=&quot;Cédula de Identidad&quot; required&gt;
+&lt;input type=&quot;password&quot; name=&quot;pass&quot; placeholder=&quot;Contraseña asignada&quot; required&gt;
+&lt;button type=&quot;submit&quot;&gt;VALIDAR ACCESO&lt;/button&gt;
+&lt;/form&gt;
+&lt;div class=&quot;help&quot;&gt;&lt;strong&gt;¿Olvidaste tu contraseña?&lt;/strong&gt;Usa temporalmente: &lt;code&gt;12345678&lt;/code&gt;&lt;/div&gt;
+&lt;div class=&quot;footer&quot;&gt;Recuerde: si es alumno, no tiene acceso permitido.&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;&quot;&quot;&quot;
+
+def html_susto():
+    return &quot;&quot;&quot;HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: close\r\n\r\n
+&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;meta http-equiv=&quot;refresh&quot; content=&quot;5;url=/malware&quot;&gt;
+&lt;style&gt;body{font-family:Arial;text-align:center;background:#d32f2f;color:#fff;margin-top:50px;}
+h1{font-size:40px;}p{font-size:20px;}&lt;/style&gt;&lt;/head&gt;
+&lt;body&gt;&lt;h1&gt;🎣 ¡CAÍSTE!&lt;/h1&gt;&lt;p&gt;Acabás de ser víctima de una simulación de &lt;b&gt;Phishing&lt;/b&gt;.&lt;/p&gt;
+&lt;p&gt;Tus datos no se guardaron, esto es solo una demostración educativa.&lt;/p&gt;
+&lt;p&gt;Serás redirigido a una demostración de &lt;b&gt;Malware&lt;/b&gt; en 5 segundos...&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Prestá atención al profe.&lt;/b&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;&quot;&quot;&quot;
+
+def html_malware():
+    return &quot;&quot;&quot;HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: close\r\n\r\n
+&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;title&gt;RANSOMWARE ACTIVO&lt;/title&gt;
+&lt;style&gt;
+body{font-family:monospace;background:#000;color:#0f0;text-align:center;padding-top:20px;margin:0;}
+.blink{animation:blink 0.5s infinite;}
+@keyframes blink{50%{opacity:0;}}
+.big{font-size:3em;color:#f00;margin:10px 0;}
+.warning{font-size:20px;margin:10px 0;}
+h1{text-shadow:0 0 20px #f00;margin:5px 0;}
+.files{text-align:left;margin:20px auto;background:#111;padding:20px;max-width:500px;border:2px solid #f00;height:200px;overflow-y:auto;}
+.file{margin:5px 0;color:#f66;}
+.info{font-size:12px;color:#666;margin-top:30px;}
+.progress{width:80%;height:20px;background:#333;margin:10px auto;border:1px solid #0f0;}
+.progress-bar{width:0%;height:100%;background:#f00;transition:width 0.1s;}
+.hidden{display:none;}
+.ransom{background:#111;border:2px solid #f00;padding:20px;margin:20px auto;max-width:400px;color:#fff;font-size:16px;}
+.ransom p{margin:10px 0;}
+.ransom .cuenta{font-size:24px;color:#ff0;font-weight:bold;background:#000;padding:5px;letter-spacing:2px;}
+&lt;/style&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;blink&quot;&gt;&lt;h1&gt;⚠️ MALWARE ACTIVO ⚠️&lt;/h1&gt;&lt;/div&gt;
+&lt;p class=&quot;big&quot;&gt;💀 RANSOMWARE 💀&lt;/p&gt;
+&lt;p class=&quot;warning&quot;&gt;Cifrando archivos del dispositivo...&lt;/p&gt;
+
+&lt;div class=&quot;progress&quot;&gt;&lt;div id=&quot;progressBar&quot; class=&quot;progress-bar&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p id=&quot;progressText&quot;&gt;0% completado&lt;/p&gt;
+
+&lt;div class=&quot;files&quot; id=&quot;fileList&quot;&gt;&lt;/div&gt;
+
+&lt;div id=&quot;ransomNote&quot; class=&quot;ransom hidden&quot;&gt;
+  &lt;p style=&quot;color:#f66;font-size:18px;&quot;&gt;&lt;b&gt;🔒 TUS ARCHIVOS ESTÁN SECUESTRADOS&lt;/b&gt;&lt;/p&gt;
+  &lt;p&gt;Para recuperarlos, debes pagar:&lt;/p&gt;
+  &lt;p style=&quot;font-size:28px;color:#ff0;font-weight:bold;&quot;&gt;$ 1.000&lt;/p&gt;
+  &lt;p&gt;Depositar en la cuenta del &lt;b&gt;Profe&lt;/b&gt;:&lt;/p&gt;
+  &lt;p class=&quot;cuenta&quot; id=&quot;cuentaAleatoria&quot;&gt;&lt;/p&gt;
+  &lt;p&gt;Banco: &lt;b&gt;Banco Central de la Clase&lt;/b&gt;&lt;/p&gt;
+  &lt;p style=&quot;color:#666;font-size:12px;&quot;&gt;(Simulación educativa – no se ha instalado nada)&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;info&quot; id=&quot;countdown&quot;&gt;Serás redirigido a la lección en &lt;span id=&quot;seconds&quot;&gt;25&lt;/span&gt; segundos...&lt;/div&gt;
+
+&lt;script&gt;
+const files = [
+  &quot;Trabajo_Final_Historia.docx&quot;,
+  &quot;Fotos_Egresados_2024.zip&quot;,
+  &quot;Boletines_Calificaciones.pdf&quot;,
+  &quot;Base_Datos_Escolar.db&quot;,
+  &quot;Videos_Excursion.mp4&quot;,
+  &quot;Contraseñas_WiFi.txt&quot;,
+  &quot;Proyecto_Ciencias.ppt&quot;,
+  &quot;Claves_Banco.xlsx&quot;,
+  &quot;Música_Spotify.mp3&quot;,
+  &quot;Tesis_Programacion.py&quot;
+];
+const fileList = document.getElementById(&#x27;fileList&#x27;);
+const progressBar = document.getElementById(&#x27;progressBar&#x27;);
+const progressText = document.getElementById(&#x27;progressText&#x27;);
+const ransomNote = document.getElementById(&#x27;ransomNote&#x27;);
+const secondsSpan = document.getElementById(&#x27;seconds&#x27;);
+const cuentaSpan = document.getElementById(&#x27;cuentaAleatoria&#x27;);
+const cuentaRandom = Math.floor(Math.random() * 9000000000) + 1000000000;
+cuentaSpan.textContent = cuentaRandom;
+let processed = 0;
+const totalFiles = files.length;
+function encryptNext() {
+  if (processed &lt; totalFiles) {
+    const fileDiv = document.createElement(&#x27;div&#x27;);
+    fileDiv.className = &#x27;file&#x27;;
+    fileDiv.innerHTML = `[CIFRADO] ${files[processed]}`;
+    fileList.appendChild(fileDiv);
+    processed++;
+    const percent = Math.round((processed / totalFiles) * 100);
+    progressBar.style.width = percent + &#x27;%&#x27;;
+    progressText.textContent = percent + &#x27;% completado&#x27;;
+    const delay = Math.floor(Math.random() * 350) + 150;
+    setTimeout(encryptNext, delay);
+  } else {
+    setTimeout(() =&gt; {
+      ransomNote.classList.remove(&#x27;hidden&#x27;);
+      let secondsLeft = 25;
+      const countdownInterval = setInterval(() =&gt; {
+        secondsLeft--;
+        secondsSpan.textContent = secondsLeft;
+        if (secondsLeft &lt;= 0) {
+          clearInterval(countdownInterval);
+          window.location.href = &#x27;/leccion&#x27;;
+        }
+      }, 1000);
+    }, 1000);
+  }
+}
+encryptNext();
+&lt;/script&gt;
+&lt;/body&gt;&lt;/html&gt;&quot;&quot;&quot;
+
+def html_leccion():
+    return &quot;&quot;&quot;HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: close\r\n\r\n
+&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;style&gt;body{font-family:Arial;background:#f0f0f0;padding:20px;color:#333;}
+.container{max-width:600px;margin:0 auto;background:#fff;padding:30px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,0.1);}
+h1{color:#d32f2f;text-align:center;}
+.lesson{background:#fff3cd;border-left:5px solid #ffc107;padding:15px;margin:15px 0;border-radius:4px;}
+.lesson h3{margin-top:0;color:#856404;}
+.lesson p{margin:8px 0;}
+.footer{text-align:center;margin-top:30px;padding-top:20px;border-top:1px solid #ddd;font-size:12px;color:#666;}
+&lt;/style&gt;&lt;/head&gt;&lt;body&gt;
+&lt;div class=&quot;container&quot;&gt;
+&lt;h1&gt;📘 LECCIÓN: Ciberseguridad Digital&lt;/h1&gt;
+&lt;div class=&quot;lesson&quot;&gt;&lt;h3&gt;1. Phishing – Ataque Social&lt;/h3&gt;&lt;p&gt;El phishing es la técnica más efectiva de los hackers. No usan tecnología compleja, sino &lt;b&gt;PSICOLOGÍA&lt;/b&gt;.&lt;/p&gt;&lt;p&gt;Te pedimos tu contraseña de una forma que parecía oficial. Casi todos caen.&lt;/p&gt;&lt;/div&gt;
+&lt;div class=&quot;lesson&quot;&gt;&lt;h3&gt;2. Ransomware – Secuestro de datos&lt;/h3&gt;&lt;p&gt;Después del phishing, los atacantes instalan malware que cifra tus archivos.&lt;/p&gt;&lt;p&gt;Piden dinero a cambio de la clave de descifrado. Es criminal.&lt;/p&gt;&lt;/div&gt;
+&lt;div class=&quot;lesson&quot;&gt;&lt;h3&gt;3. Cómo protegerse&lt;/h3&gt;&lt;p&gt;✓ Verifica SIEMPRE la URL exacta (no confíes en lo que parece oficial)&lt;/p&gt;&lt;p&gt;✓ Las empresas NUNCA piden contraseña por formularios web&lt;/p&gt;&lt;p&gt;✓ WiFi pública = PELIGRO máximo&lt;/p&gt;&lt;p&gt;✓ No abras archivos de desconocidos&lt;/p&gt;&lt;p&gt;✓ Actualiza tu software siempre&lt;/p&gt;&lt;/div&gt;
+&lt;div class=&quot;lesson&quot;&gt;&lt;h3&gt;4. Lo que capturamos&lt;/h3&gt;&lt;p&gt;En un ataque real, hubiéramos obtenido:&lt;/p&gt;&lt;p&gt;✓ Tu número de cédula&lt;/p&gt;&lt;p&gt;✓ Tu contraseña&lt;/p&gt;&lt;p&gt;✓ Tu dispositivo y sistema operativo&lt;/p&gt;&lt;p&gt;✓ Tu ubicación&lt;/p&gt;&lt;p&gt;✓ Toda tu información personal&lt;/p&gt;&lt;/div&gt;
+&lt;div class=&quot;footer&quot;&gt;Recuerda: La seguridad digital es tu responsabilidad&lt;br&gt;Comparte este conocimiento con tu familia&lt;/div&gt;
+&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;&quot;&quot;&quot;
+
+def html_admin(contador, registros):
+    items = &quot;&quot;
+    for item in registros:
+        if len(item) == 4:
+            hora, modelo, ua, mac = item
+            ua_short = ua[:60] + (&quot;...&quot; if len(ua) &gt; 60 else &quot;&quot;)
+            items += f&quot;&lt;li&gt;&lt;strong&gt;{modelo}&lt;/strong&gt; ({mac})&lt;br&gt;&lt;small&gt;{hora} - {ua_short}&lt;/small&gt;&lt;/li&gt;&quot;
+        else:
+            hora, modelo, ua = item
+            ua_short = ua[:60] + (&quot;...&quot; if len(ua) &gt; 60 else &quot;&quot;)
+            items += f&quot;&lt;li&gt;&lt;strong&gt;{modelo}&lt;/strong&gt;&lt;br&gt;&lt;small&gt;{hora} - {ua_short}&lt;/small&gt;&lt;/li&gt;&quot;
+    if not items:
+        items = &quot;&lt;li style=&#x27;color:#666;&#x27;&gt;Ningún dispositivo ha caído aún.&lt;/li&gt;&quot;
+    return f&quot;&quot;&quot;HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nConnection: close\r\n\r\n
+&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta http-equiv=&quot;refresh&quot; content=&quot;3&quot;&gt;
+&lt;style&gt;body{{font-family:monospace;background:#111;color:#0f0;text-align:center;margin-top:40px;}}
+h1{{font-size:40px;color:#fff;}}.num{{font-size:120px;font-weight:bold;color:#f00;margin:10px;text-shadow:0 0 20px #f00;}}
+.alerta{{font-size:20px;animation:parpadeo 1s infinite;margin-bottom:30px;}}
+ul{{list-style-type:none;padding:0;font-size:16px;color:#aaa;max-width:500px;margin:0 auto;text-align:left;}}
+li{{background:#222;margin:5px 0;padding:10px;border-left:4px solid #f00;}}
+@keyframes parpadeo{{50%{{opacity:0;}}}}&lt;/style&gt;&lt;/head&gt;
+&lt;body&gt;&lt;h1&gt;👨‍🏫 ALUMNOS COMPROMETIDOS&lt;/h1&gt;&lt;div class=&quot;num&quot;&gt;{contador}&lt;/div&gt;
+&lt;p class=&quot;alerta&quot;&gt;Monitoreo de huella digital en la red...&lt;/p&gt;
+&lt;ul&gt;{items}&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;&quot;&quot;&quot;
+
+# ========== DNS FALSO (no bloqueante) ==========
+dns_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+dns_sock.bind((&#x27;0.0.0.0&#x27;, 53))
+dns_sock.setblocking(False)
+
+def responder_dns():
+    try:
+        data, addr = dns_sock.recvfrom(1024)
+        transaction_id = data[:2]
+        respuesta = transaction_id + b&#x27;\x81\x80&#x27; + data[4:6] + data[4:6] + b&#x27;\x00\x00\x00\x00&#x27;
+        pregunta = data[12:]
+        fin_pregunta = pregunta.find(b&#x27;\x00&#x27;, 5) + 5
+        respuesta += pregunta[:fin_pregunta]
+        ip_bytes = bytes(map(int, AP_IP.split(&#x27;.&#x27;)))
+        respuesta += b&#x27;\xc0\x0c\x00\x01\x00\x01\x00\x00\x00\x3c\x00\x04&#x27; + ip_bytes
+        dns_sock.sendto(respuesta, addr)
+    except OSError as e:
+        if e.args[0] not in (errno.EAGAIN, errno.EWOULDBLOCK):
+            print(&quot;[DNS error]&quot;, e)
+    except Exception as e:
+        print(&quot;[DNS error]&quot;, e)
+
+# ========== SERVIDOR WEB (no bloqueante) ==========
+web_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+web_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+web_sock.bind((&#x27;0.0.0.0&#x27;, 80))
+web_sock.listen(5)
+web_sock.setblocking(False)
+
+print(&quot;🧑‍🏫 AP educativo activo en&quot;, AP_IP)
+print(&quot;SSID:&quot;, ssid)
+if NODE_ROLE == &#x27;master&#x27;:
+    print(&quot;📊 Admin: http://&quot; + AP_IP + &quot;/admin&quot;)
+else:
+    print(&quot;📡 Esclavo listo. Los eventos se enviarán al maestro.&quot;)
+
+# ========== BUCLE PRINCIPAL CON select() ==========
+while True:
+    # Monitorear sockets de web y DNS
+    readers = [web_sock, dns_sock]
+    try:
+        rlist, _, _ = select.select(readers, [], [], 0.1)
+    except Exception as e:
+        print(&quot;[Select error]&quot;, e)
+        continue
+
+    # Procesar DNS
+    if dns_sock in rlist:
+        responder_dns()
+
+    # Procesar conexiones web
+    if web_sock in rlist:
+        try:
+            conn, addr = web_sock.accept()
+            conn.settimeout(2.0)   # timeout para evitar bloqueos largos
+            try:
+                req = conn.recv(2048).decode(&#x27;utf-8&#x27;, &#x27;ignore&#x27;)
+            except Exception:
+                conn.close()
+                continue
+
+            # Captive Portal Detection
+            if any(path in req for path in [&quot;/generate_204&quot;, &quot;/hotspot-detect.html&quot;, &quot;/ncsi.txt&quot;, &quot;/connecttest.txt&quot;]):
+                conn.sendall(http_redirect(&quot;/&quot;).encode(&#x27;utf-8&#x27;))
+
+            elif &quot;POST /susto&quot; in req:
+                ahora = time.localtime()
+                hora_str = &quot;{:02d}:{:02d}:{:02d}&quot;.format(ahora[3], ahora[4], ahora[5])
+                modelo = &quot;Dispositivo desconocido&quot;
+                ua_completo = &quot;&quot;
+                for linea in req.split(&#x27;\r\n&#x27;):
+                    if &quot;User-Agent:&quot; in linea:
+                        ua_completo = linea.split(&quot;:&quot;, 1)[1].strip()
+                        ua_lower = ua_completo.lower()
+                        if &quot;iphone&quot; in ua_lower: modelo = &quot;Apple iPhone&quot;
+                        elif &quot;ipad&quot; in ua_lower: modelo = &quot;Apple iPad&quot;
+                        elif &quot;android&quot; in ua_lower: modelo = &quot;Teléfono Android&quot;
+                        elif &quot;mac os&quot; in ua_lower or &quot;macintosh&quot; in ua_lower: modelo = &quot;Apple Mac&quot;
+                        elif &quot;windows&quot; in ua_lower: modelo = &quot;PC Windows&quot;
+                        elif &quot;linux&quot; in ua_lower: modelo = &quot;Linux&quot;
+                        break
+                # Actualizar contador local si es master y también AP
+                if NODE_ROLE == &#x27;master&#x27; and MASTER_ALSO_AP:
+                    contador += 1
+                    registro_caidas.insert(0, (hora_str, modelo, ua_completo[:60] + (&quot;...&quot; if len(ua_completo)&gt;60 else &quot;&quot;), own_mac[:6]))
+                    if len(registro_caidas) &gt; 20:
+                        registro_caidas.pop()
+                # Enviar evento por ESP-NOW
+                msg = f&quot;CAYO|{modelo}|{ua_completo[:60]}|{time.time()}&quot;
+                e.send(b&#x27;\xff\xff\xff\xff\xff\xff&#x27;, msg.encode())
+                print(&quot;[PHISHING] &quot; + modelo + &quot; - &quot; + addr[0])
+                conn.sendall(html_susto().encode(&#x27;utf-8&#x27;))
+
+            elif &quot;GET /admin&quot; in req:
+                if NODE_ROLE == &#x27;master&#x27;:
+                    print(&quot;[ADMIN] Acceso&quot;)
+                    conn.sendall(html_admin(contador, registro_caidas).encode(&#x27;utf-8&#x27;))
+                else:
+                    conn.sendall(http_redirect(&quot;/&quot;).encode(&#x27;utf-8&#x27;))
+
+            elif &quot;GET /malware&quot; in req:
+                conn.sendall(html_malware().encode(&#x27;utf-8&#x27;))
+
+            elif &quot;GET /leccion&quot; in req:
+                conn.sendall(html_leccion().encode(&#x27;utf-8&#x27;))
+
+            elif &quot;GET /login&quot; in req:
+                seccion = &quot;desconocida&quot;
+                if &quot;seccion=&quot; in req:
+                    try:
+                        seccion = req.split(&quot;seccion=&quot;)[1].split(&quot; &quot;)[0].split(&quot;&amp;&quot;)[0]
+                    except:
+                        pass
+                conn.sendall(html_login(seccion).encode(&#x27;utf-8&#x27;))
+
+            else:
+                conn.sendall(html_portal().encode(&#x27;utf-8&#x27;))
+
+            conn.close()
+
+        except OSError as e:
+            # Errores comunes en non-blocking accept
+            if e.args[0] not in (errno.EAGAIN, errno.EWOULDBLOCK, errno.ECONNRESET, errno.ENOTCONN):
+                print(&quot;[Web error]&quot;, e)
+        except Exception as e:
+            print(&quot;[Web error]&quot;, e)
+
+    # Recibir mensajes ESP-NOW (no bloqueante)
+    try:
+        host, msg = e.recv(0)
+        if msg and NODE_ROLE == &#x27;master&#x27;:
+            mac_origen = ubinascii.hexlify(host).decode()
+            if mac_origen != own_mac:
+                msg_str = msg.decode()
+                if msg_str.startswith(&quot;CAYO|&quot;):
+                    partes = msg_str.split(&#x27;|&#x27;)
+                    modelo = partes[1] if len(partes) &gt; 1 else &quot;Desconocido&quot;
+                    ua = partes[2] if len(partes) &gt; 2 else &quot;&quot;
+                    ahora = time.localtime()
+                    hora_str = &quot;{:02d}:{:02d}:{:02d}&quot;.format(ahora[3], ahora[4], ahora[5])
+                    contador += 1
+                    registro_caidas.insert(0, (hora_str, modelo, ua, mac_origen[:6]))
+                    if len(registro_caidas) &gt; 20:
+                        registro_caidas.pop()
+                    print(&quot;[ESP-NOW] Caída desde&quot;, mac_origen)
+    except Exception as e:
+        # ESP-NOW recv devuelve None cuando no hay datos, no lanza excepción normalmente
+        pass
+</pre>
+    </details>
+
+    <div class="btn-row" style="margin-top:24px;">
+      <a class="btn secondary" href="como-funciona.html">← Cómo funciona</a>
+      <a class="btn" href="guia-docente.html">Guía docente →</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="container">
+    <span>Ciencias de la Computación · 8°–9° EBI · ANEP · Braian Mosqueira</span>
+    <span>Licencia <a href="licencia.html">CC BY 4.0</a></span>
+  </div>
+</footer>
+<script src="assets/a11y.js"></script>
+<script>
+function copiarCodigo() {
+  const el = document.getElementById('codigo-fuente');
+  navigator.clipboard.writeText(el.textContent).then(() => alert('Código copiado')).catch(() => alert('Seleccioná el código manualmente'));
+}
+</script>
+</body>
+</html>
